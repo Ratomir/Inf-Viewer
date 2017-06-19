@@ -1,4 +1,4 @@
-package toolbar;
+package toolbar.dialog;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -14,13 +14,9 @@ import javax.swing.JTextField;
 
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-
 import net.miginfocom.swing.MigLayout;
 
 public class NewConnectionMetaDialog extends JDialog implements ActionListener {

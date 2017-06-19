@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JToolBar;
 
+import toolbar.dialog.NewConnectionMetaDialog;
+import toolbar.dialog.NewUserDialog;
+
 public class ToolbarView extends JToolBar implements ActionListener {
 
 	/**
@@ -24,11 +27,19 @@ public class ToolbarView extends JToolBar implements ActionListener {
 		
 		add(createMetaScheme);
 		
+		createMetaScheme = new ToolBarItem(new ImageIcon("icons/new.png"), "New User", "NewUserT");
+		createMetaScheme.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		add(createMetaScheme);
+		
 		createMetaScheme.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		NewConnectionMetaDialog dialog = new NewConnectionMetaDialog();
+//		NewConnectionMetaDialog dialog = new NewConnectionMetaDialog();
+		
+		NewUserDialog dialog = new NewUserDialog();
+		
 	}
 }
