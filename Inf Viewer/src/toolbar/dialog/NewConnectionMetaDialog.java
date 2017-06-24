@@ -59,6 +59,7 @@ public class NewConnectionMetaDialog extends JDialog implements ActionListener {
 		setLocationRelativeTo(null);
 		setModal(true);
 		setVisible(true);
+		pack();
 	}
 
 	@Override

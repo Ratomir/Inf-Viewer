@@ -89,18 +89,18 @@ public class NewUserDialog extends JDialog implements ActionListener {
 		setPreferredSize(new Dimension(600, 400));
 		setLocationRelativeTo(null);
 		setModal(true);
+		pack();
 		setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		
 		UserModel userModel = new UserModel();
 
 		DBCollection userCollection = DBConnection.getCollection("user");
 		BasicDBObject dbObject = new BasicDBObject();
-		dbObject.put("age", "18");
+		dbObject.put("age", "19");
 		userModel = userModel.toObject(DBConnection.findOne("user", dbObject));
 //		userModel.age = age.getText();
 //		userModel.email = email.getText();
@@ -108,6 +108,11 @@ public class NewUserDialog extends JDialog implements ActionListener {
 //		userModel.lastName = lastName.getText();
 //		userModel.password = new String(passwordField.getPassword());
 //		userModel.userName = userName.getText();
+//		
+//		userModel.roles = new ArrayList<RoleModel>();
+//		RoleModel roleForUser = new RoleModel();
+//		roleForUser.name = "Administrator";
+//		userModel.roles.add(roleForUser);
 //		
 //		userCollection.insert(userModel.createDbObject());
 		

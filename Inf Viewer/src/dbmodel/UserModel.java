@@ -15,7 +15,7 @@ public class UserModel extends BaseDbModel<UserModel> {
 	public String password;
 	
 	public List<RoleModel> roles;
-
+	
 	@Override
 	public DBObject createDbObject() {
 		BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
@@ -27,12 +27,14 @@ public class UserModel extends BaseDbModel<UserModel> {
 		docBuilder.append("userName", userName);
 		docBuilder.append("password", password);
 		
+		docBuilder.append("roles", RoleModel.mapToList(roles));
+		
 		return docBuilder.get();
 	}
 
 	@Override
-	public UserModel toObject(DBObject object) {
-		UserModel model = (new Gson()).fromJson(object.toString(), UserModel.class);
+	public UserModel toObject(DBObject objectMongo) {
+		UserModel model = (new Gson()).fromJson(objectMongo.toString(), UserModel.class);
 		return model;
 	}
 }

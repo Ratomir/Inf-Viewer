@@ -9,6 +9,7 @@ import javax.swing.JToolBar;
 
 import toolbar.dialog.NewConnectionMetaDialog;
 import toolbar.dialog.NewUserDialog;
+import toolbar.dialog.UserComponent;
 
 public class ToolbarView extends JToolBar implements ActionListener {
 
@@ -39,7 +40,8 @@ public class ToolbarView extends JToolBar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 //		NewConnectionMetaDialog dialog = new NewConnectionMetaDialog();
 		
-		NewUserDialog dialog = new NewUserDialog();
+//		NewUserDialog dialog = new NewUserDialog();
 		
+		UserComponent component = new UserComponent();
 	}
 }
