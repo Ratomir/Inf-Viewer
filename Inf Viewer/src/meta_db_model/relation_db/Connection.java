@@ -11,6 +11,7 @@ public class Connection {
     private String port;
     private String schema;
     private String username;
+    private String connectionName;
 
     /**
      * No args constructor for use in serialization
@@ -28,8 +29,9 @@ public class Connection {
      * @param databasetype
      * @param password
      * @param database
+     * @param connectionName
      */
-    public Connection(String address, String database, String databasetype, String password, String port, String schema, String username) {
+    public Connection(String address, String database, String databasetype, String password, String port, String schema, String username, String connectionName) {
         super();
         this.address = address;
         this.database = database;
@@ -38,6 +40,7 @@ public class Connection {
         this.port = port;
         this.schema = schema;
         this.username = username;
+        this.connectionName = connectionName;
     }
 
     public String getAddress() {
@@ -95,5 +98,19 @@ public class Connection {
     public void setUsername(String username) {
         this.username = username;
     }
+
+	/**
+	 * @return the connectionName
+	 */
+	public String getConnectionName() {
+		return connectionName;
+	}
+
+	/**
+	 * @param connectionName the connectionName to set
+	 */
+	public void setConnectionName(String connectionName) {
+		this.connectionName = connectionName;
+	}
 
 }

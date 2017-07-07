@@ -1,23 +1,58 @@
 package render;
 
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Vector;
 
-public class ConnectionExplorerModel extends DefaultTreeModel  {
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+import meta_db_model.relation_db.Database;
+import meta_db_model.relation_db.Table;
+import render.tree.TreeNodeVector;
 
-	public ConnectionExplorerModel(TreeNode root) {
-		super(root);
-		// TODO Auto-generated constructor stub
+public class ConnectionExplorerModel {
+
+	private Vector<Object> rootVector = null;
+
+	public ConnectionExplorerModel(String path) {
+		Database newDatabase = null;
+		byte[] encoded = null;
+		try {
+			encoded = Files.readAllBytes(Paths.get(path));
+			
+			Gson gson = new GsonBuilder().create();
+            newDatabase = gson.fromJson(new String(encoded, StandardCharsets.UTF_8), Database.class);
+		} catch (IOException e) {
+			// TODO Dialog exception
+			e.printStackTrace();
+		}
+		
+		Vector<Table> tableVector = new TreeNodeVector<Table>("Tables", newDatabase.getTable().toArray(new Table[0]));
+		
+		Object rootNodes[] = { tableVector };
+		
+		rootVector = new TreeNodeVector<Object>("Root", rootNodes);
 	}
 	
-	public ConnectionExplorerModel(TreeNode root, String path) {
-		super(root);
-		// TODO Auto-generated constructor stub
+	public void loadTables(java.util.List<Table> tables) {
+		
+	}
+
+	/**
+	 * @return the rootVector
+	 */
+	public Vector<Object> getRootVector() {
+		return rootVector;
+	}
+
+	/**
+	 * @param rootVector the rootVector to set
+	 */
+	public void setRootVector(Vector<Object> rootVector) {
+		this.rootVector = rootVector;
 	}
 
 }
