@@ -15,6 +15,7 @@ import com.javadocking.dockable.DefaultDockable;
 import com.javadocking.dockable.Dockable;
 import com.javadocking.model.FloatDockModel;
 
+import dbmodel.UserModel;
 import menu.MenuBar;
 import render.ConnectionExplorer;
 import toolbar.ToolbarView;
@@ -35,6 +36,8 @@ public class View extends JFrame {
 	
 	public MenuBar menuBar = null;
 	public ToolbarView toolbar = null;  
+	
+	public static UserModel currentUser;
 	
 	public View()
 	{

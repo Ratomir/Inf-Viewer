@@ -15,6 +15,7 @@ import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import render.ConnectionExplorer;
+import view.View;
 
 public class MenuBar extends JMenuBar implements ActionListener {
 
@@ -33,8 +34,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		file = new JMenu("Menu");
 		file.setMnemonic(KeyEvent.VK_F);
 
-		file.add(new MenuItem("Import scheme", new ImageIcon("icons/ikonice nove/base.png"),
-				KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK), "importScheme", this));
+//		if(View.currentUser.roles.contains("admin")){
+			file.add(new MenuItem("Import scheme", new ImageIcon("icons/ikonice nove/base.png"),
+					KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK), "importScheme", this));
+//		}
+		
 		file.addSeparator();
 		file.add(new MenuItem("Sign out", new ImageIcon("icons/ikonice nove/logout.png"), null, "logOut", this));
 		// file.add(exit);

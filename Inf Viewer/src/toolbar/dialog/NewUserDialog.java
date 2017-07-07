@@ -100,7 +100,8 @@ public class NewUserDialog extends JDialog implements ActionListener {
 
 		DBCollection userCollection = DBConnection.getCollection("user");
 		BasicDBObject dbObject = new BasicDBObject();
-		dbObject.put("age", "19");
+		dbObject.put("username", "19");
+		dbObject.put("password", "19");
 		userModel = userModel.toObject(DBConnection.findOne("user", dbObject));
 //		userModel.age = age.getText();
 //		userModel.email = email.getText();

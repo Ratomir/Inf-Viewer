@@ -9,6 +9,7 @@ import java.util.Vector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import meta_db_model.relation_db.Connection;
 import meta_db_model.relation_db.Database;
 import meta_db_model.relation_db.Table;
 import render.tree.TreeNodeVector;
@@ -29,6 +30,10 @@ public class ConnectionExplorerModel {
 			// TODO Dialog exception
 			e.printStackTrace();
 		}
+		
+		Connection[] connectionArray = {newDatabase.getConnection()};
+		
+//		Vector<Table> connectionNode = new TreeNodeVector<Table>("Connection", connectionArray);
 		
 		Vector<Table> tableVector = new TreeNodeVector<Table>("Tables", newDatabase.getTable().toArray(new Table[0]));
 		
