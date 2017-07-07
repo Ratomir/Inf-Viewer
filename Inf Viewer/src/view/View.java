@@ -15,6 +15,7 @@ import com.javadocking.dockable.DefaultDockable;
 import com.javadocking.dockable.Dockable;
 import com.javadocking.model.FloatDockModel;
 
+import menu.MenuBar;
 import render.ConnectionExplorer;
 import toolbar.ToolbarView;
 
@@ -31,6 +32,8 @@ public class View extends JFrame {
 	public CentralView centralMainView = null;
 	public ElementPropertiesView elementPropertiesView = null;
 	
+	
+	public MenuBar menuBar = null;
 	public ToolbarView toolbar = null;  
 	
 	public View()
@@ -53,6 +56,16 @@ public class View extends JFrame {
 		this.setLocation(150, 150);
 		mainPanel.setPreferredSize(new Dimension(500,  500));
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		menuBar = new MenuBar();
+		
+		//Set dependency 
+		
+		menuBar.setConnectionExplorer(connectionExplorer);
+		
+		//End dependency
+		
+		this.setJMenuBar(menuBar);
 		
 		this.dynamicWindow();
 		
