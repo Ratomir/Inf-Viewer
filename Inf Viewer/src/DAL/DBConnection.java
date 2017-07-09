@@ -63,8 +63,7 @@ public class DBConnection {
 
 	private static void createMongoDbConnection() {
 		try {
-			mongoConnection = new MongoClient(new MongoClientURI(
-					"mongodb://infviwer:1rhYOCR4kE3HxcJpPZghw8jckUiLsjDUHRGDg0hmqXC0ul6yNfiV8zFbCiihprlbifV61SAOIDwlzTePPDWfgw==@infviwer.documents.azure.com:10255/?ssl=true&replicaSet=globaldb"));
+			mongoConnection = new MongoClient("localhost", 27017);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
