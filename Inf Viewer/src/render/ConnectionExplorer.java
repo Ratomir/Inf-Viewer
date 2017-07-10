@@ -22,12 +22,13 @@ public class ConnectionExplorer extends JScrollPane {
 	private ConnectionExplorerModel model = null;
 	
 	public void setTree(String path){
-    	model = new ConnectionExplorerModel(path);
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Database");
+    	model = new ConnectionExplorerModel(root, path);
     	
-    	connectionTree = new JTree(model.getRootVector());
+    	connectionTree = new JTree(model);
 		connectionTree.setCellRenderer(new TreeRenderer());
     	connectionTree.setBorder(new EmptyBorder(2, 2, 2, 2));
-    	connectionTree.setRowHeight(20);
+//    	connectionTree.setRowHeight(20);
     	connectionTree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
 //		connectionTree.addTreeSelectionListener((TreeSelectionListener) controller);

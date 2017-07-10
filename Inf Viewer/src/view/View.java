@@ -37,7 +37,8 @@ public class View extends JFrame implements WindowListener {
 	private static final long serialVersionUID = 1L;
 
 	private WindowPropertiesModel windowPropertiesModel = null;
-
+	private LoginView loginView = null;
+	
 	public JPanel mainPanel = null;
 
 	public ConnectionExplorer connectionExplorer = null;
@@ -49,9 +50,10 @@ public class View extends JFrame implements WindowListener {
 
 	public static UserModel currentUser;
 
-	public View(UserModel userModel) {
+	public View(UserModel userModel, LoginView loginView) {
 		this.currentUser = userModel;
-
+		this.loginView = loginView;
+		
 		// poziv konstruktora cije klase formiraju prikaz editora
 		this.addWindowListener(this);
 		
@@ -174,8 +176,8 @@ public class View extends JFrame implements WindowListener {
 		// State.setState(null);
 
 		this.setVisible(false); // you can't see me!
-		new LoginView();
-		this.dispose(); // Destroy the JFrame object
+		loginView.setVisible(true);
+		//this.dispose(); // Destroy the JFrame object
 	}
 
 	@Override
@@ -200,5 +202,19 @@ public class View extends JFrame implements WindowListener {
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * @return the loginView
+	 */
+	public LoginView getLoginView() {
+		return loginView;
+	}
+
+	/**
+	 * @param loginView the loginView to set
+	 */
+	public void setLoginView(LoginView loginView) {
+		this.loginView = loginView;
 	}
 }

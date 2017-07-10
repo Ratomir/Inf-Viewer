@@ -279,8 +279,8 @@ public class LoginView extends JFrame implements ActionListener, WindowListener 
 				rememberMeModel.setRememberMe(this.getRememberMe().isSelected());
 
 				JsonWriterInfViewer.writeToJsonFile(ApplicationLocation.rememberMe, rememberMeModel);
-				this.dispose();
-				new View(userModel);
+				this.setVisible(false);
+				new View(userModel, this);
 			} else {
 				this.getLblErrorUserName().setVisible(true);
 			}
