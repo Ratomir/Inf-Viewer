@@ -1,4 +1,4 @@
-package menu;
+ package menu;
 
 import java.awt.Event;
 import java.awt.event.ActionEvent;
@@ -14,8 +14,11 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import core.ApplicationLocation;
+import parser.JsonParser;
 import render.ConnectionExplorer;
 import view.View;
+import view.model.WindowPropertiesModel;
 
 public class MenuBar extends JMenuBar implements ActionListener {
 
@@ -67,6 +70,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		switch (actionCommand) {
 		case "importScheme":
+			
+			WindowPropertiesModel windowsPropertiesModel = new JsonParser<WindowPropertiesModel>(WindowPropertiesModel.class)
+					.readFromJsonFile(ApplicationLocation.windowProp);
+			
+//			if(windowsPropertiesModel.getLastLocationOfImportFiles().isEmpty()){
+//				
+//			}
+			
 			File workingDirectory = new File(System.getProperty("user.dir"));
 			JFileChooser fileCh = new JFileChooser(workingDirectory);
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(null, "json");

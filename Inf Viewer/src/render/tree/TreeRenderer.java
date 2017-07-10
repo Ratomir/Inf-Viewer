@@ -37,7 +37,8 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
 
 	Icon databaseIcon = new ImageIcon("icons/explorer/database.png");
 	Icon tableIcon = new ImageIcon("icons/explorer/table.png");
-
+	Icon storeProcedure = new ImageIcon("icons/explorer/storeprocedure.png");
+	
 	Color backgroundSelectionColor;
 	Color backgroundNonSelectionColor;
 
@@ -74,7 +75,7 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
 		} else if (value instanceof StoreProcedureElement) {
 			StoreProcedureElement e = (StoreProcedureElement) value;
 			textLabel.setText(e.getName());
-			icon.setIcon(tableIcon);
+			icon.setIcon(storeProcedure);
 			if (isSelected) {
 				renderer.setBackground(backgroundSelectionColor);
 			} else {

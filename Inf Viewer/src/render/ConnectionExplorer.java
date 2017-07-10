@@ -28,7 +28,6 @@ public class ConnectionExplorer extends JScrollPane {
     	connectionTree = new JTree(model);
 		connectionTree.setCellRenderer(new TreeRenderer());
     	connectionTree.setBorder(new EmptyBorder(2, 2, 2, 2));
-//    	connectionTree.setRowHeight(20);
     	connectionTree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
 //		connectionTree.addTreeSelectionListener((TreeSelectionListener) controller);
