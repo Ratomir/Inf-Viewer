@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import DAL.DbCollections;
+import core.DbCollections;
 import render.TableDbView;
 
 public class UserComponent extends JDialog {

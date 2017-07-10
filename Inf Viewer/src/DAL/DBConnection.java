@@ -7,8 +7,6 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.DBRefBase;
-import com.mongodb.MongoClientURI;
 import com.mongodb.WriteResult;
 import com.mongodb.MongoClient;
 

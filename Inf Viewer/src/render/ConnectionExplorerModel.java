@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 import meta_db_model.relation_db.Connection;
 import meta_db_model.relation_db.Database;
 import meta_db_model.relation_db.Table;
+import parser.JsonParser;
 import render.tree.TreeNodeVector;
 
 public class ConnectionExplorerModel {
@@ -19,7 +20,8 @@ public class ConnectionExplorerModel {
 	private Vector<Object> rootVector = null;
 
 	public ConnectionExplorerModel(String path) {
-		Database newDatabase = null;
+		JsonParser<Database> jsonParser = new JsonParser<Database>(Database.class);
+		Database newDatabase = new JsonParser<Database>(Database.class).readFromJsonFile(path);
 		byte[] encoded = null;
 		try {
 			encoded = Files.readAllBytes(Paths.get(path));

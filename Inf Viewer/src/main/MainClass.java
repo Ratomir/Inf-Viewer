@@ -5,7 +5,7 @@ package main;
 
 import javax.swing.UIManager;
 
-import view.View;
+import view.login.LoginView;
 
 /**
  * @author pc
@@ -26,7 +26,7 @@ public class MainClass {
 		}
 		
 		
-		new View();
+		new LoginView();
 	}
 
 }

@@ -17,7 +17,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import DAL.DBConnection;
-import DAL.DbCollections;
+import core.DbCollections;
 
 public class TableDbView extends JScrollPane {
 

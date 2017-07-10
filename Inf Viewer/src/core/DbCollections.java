@@ -1,4 +1,4 @@
-package DAL;
+package core;
 
 public class DbCollections {
 	
