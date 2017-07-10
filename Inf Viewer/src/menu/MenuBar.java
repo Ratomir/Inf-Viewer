@@ -1,4 +1,4 @@
- package menu;
+package menu;
 
 import java.awt.Event;
 import java.awt.event.ActionEvent;
@@ -16,6 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import core.ApplicationLocation;
 import parser.JsonParser;
+import parser.JsonWriterInfViewer;
 import render.ConnectionExplorer;
 import view.View;
 import view.model.WindowPropertiesModel;
@@ -37,11 +38,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		file = new JMenu("Menu");
 		file.setMnemonic(KeyEvent.VK_F);
 
-//		if(View.currentUser.roles.contains("admin")){
-			file.add(new MenuItem("Import scheme", new ImageIcon("icons/ikonice nove/base.png"),
-					KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK), "importScheme", this));
-//		}
-		
+		// if(View.currentUser.roles.contains("admin")){
+		file.add(new MenuItem("Import scheme", new ImageIcon("icons/ikonice nove/base.png"),
+				KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK), "importScheme", this));
+		// }
+
 		file.addSeparator();
 		file.add(new MenuItem("Sign out", new ImageIcon("icons/ikonice nove/logout.png"), null, "logOut", this));
 		// file.add(exit);
@@ -70,21 +71,27 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		switch (actionCommand) {
 		case "importScheme":
-			
-			WindowPropertiesModel windowsPropertiesModel = new JsonParser<WindowPropertiesModel>(WindowPropertiesModel.class)
-					.readFromJsonFile(ApplicationLocation.windowProp);
-			
-//			if(windowsPropertiesModel.getLastLocationOfImportFiles().isEmpty()){
-//				
-//			}
-			
-			File workingDirectory = new File(System.getProperty("user.dir"));
+
+			WindowPropertiesModel windowPropertiesModel = new JsonParser<WindowPropertiesModel>(
+					WindowPropertiesModel.class).readFromJsonFile(ApplicationLocation.windowProp);
+
+			File workingDirectory = null;
+			if (!windowPropertiesModel.getLastLocationOfImportFiles().isEmpty()) {
+				workingDirectory = new File(windowPropertiesModel.getLastLocationOfImportFiles());
+			} else {
+				workingDirectory = new File(System.getProperty("user.dir"));
+			}
+
 			JFileChooser fileCh = new JFileChooser(workingDirectory);
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(null, "json");
 			fileCh.setFileFilter(filter);
 			int option = fileCh.showOpenDialog(null);
 			if (option == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileCh.getSelectedFile();
+				
+				windowPropertiesModel.setLastLocationOfImportFiles(selectedFile.toString());
+				JsonWriterInfViewer.writeToJsonFile(ApplicationLocation.windowProp, windowPropertiesModel);
+				
 				connectionExplorer.setTree(selectedFile.toString());
 			}
 			break;

@@ -33,22 +33,36 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
 	JPanel renderer = new JPanel(new BorderLayout());
 	Box horizontalBox = Box.createHorizontalBox();
 
-	DefaultTreeCellRenderer defaultRenderer = new DefaultTreeCellRenderer();
-
 	Icon databaseIcon = new ImageIcon("icons/explorer/database.png");
+
+	Icon tableMainIcon = new ImageIcon("icons/explorer/table-main.png");
 	Icon tableIcon = new ImageIcon("icons/explorer/table.png");
+
 	Icon storeProcedure = new ImageIcon("icons/explorer/storeprocedure.png");
+
+	Icon columnMainIcon = new ImageIcon("icons/explorer/column-main.png");
+	Icon columnIcon = new ImageIcon("icons/explorer/column.png");
+
+	Icon crudMainIcon = new ImageIcon("icons/explorer/crud-main.png");
+	Icon crudIcon = new ImageIcon("icons/explorer/crud.png");
 	
+	Icon closedIcon = new ImageIcon("icons/explorer/closed.png");
+	Icon openIcon = new ImageIcon("icons/explorer/open.png");
+	Icon referencesIcon = new ImageIcon("icons/explorer/references.png");
+
 	Color backgroundSelectionColor;
 	Color backgroundNonSelectionColor;
 
 	public TreeRenderer() {
-
 		renderer.add(horizontalBox);
 
 		horizontalBox.add(icon);
 		horizontalBox.add(textLabel);
 
+		setClosedIcon(closedIcon);
+		setOpenIcon(openIcon);
+
+		DefaultTreeCellRenderer defaultRenderer = new DefaultTreeCellRenderer();
 		backgroundSelectionColor = defaultRenderer.getBackgroundSelectionColor();
 		backgroundNonSelectionColor = defaultRenderer.getBackgroundNonSelectionColor();
 	}
@@ -58,78 +72,61 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
 
 		super.getTreeCellRendererComponent(tree, value, isSelected, expanded, leaf, row, hasFocus);
 
-		Component returnValue = null;
-
 		if (tree.getModel().getRoot() == value) {
 			ConnectionElement e = (ConnectionElement) value;
 			textLabel.setText(e.getName());
 			icon.setIcon(databaseIcon);
-			if (isSelected) {
-				renderer.setBackground(backgroundSelectionColor);
-			} else {
-				renderer.setBackground(backgroundNonSelectionColor);
-			}
-
-			renderer.setEnabled(tree.isEnabled());
-			returnValue = renderer;
 		} else if (value instanceof StoreProcedureElement) {
 			StoreProcedureElement e = (StoreProcedureElement) value;
 			textLabel.setText(e.getName());
 			icon.setIcon(storeProcedure);
-			if (isSelected) {
-				renderer.setBackground(backgroundSelectionColor);
-			} else {
-				renderer.setBackground(backgroundNonSelectionColor);
-			}
-			renderer.setEnabled(tree.isEnabled());
-			returnValue = renderer;
-		} else if (value instanceof TableElement) {
-			TableElement e = (TableElement) value;
-			textLabel.setText(e.getName());
-			icon.setIcon(tableIcon);
-			if (isSelected) {
-				renderer.setBackground(backgroundSelectionColor);
-			} else {
-				renderer.setBackground(backgroundNonSelectionColor);
-			}
-			renderer.setEnabled(tree.isEnabled());
-			returnValue = renderer;
-		} else if (value instanceof ColumnElement) {
-			ColumnElement e = (ColumnElement) value;
-			textLabel.setText(e.getName());
-			icon.setIcon(tableIcon);
-			if (isSelected) {
-				renderer.setBackground(backgroundSelectionColor);
-			} else {
-				renderer.setBackground(backgroundNonSelectionColor);
-			}
-			renderer.setEnabled(tree.isEnabled());
-			returnValue = renderer;
-		} else if (value instanceof CrudElement) {
-			CrudElement e = (CrudElement) value;
-			
-			textLabel.setText(e.getCode() == null ? e.getName() : (e.getCode() + ": " + e.getName()));
-			icon.setIcon(tableIcon);
-			if (isSelected) {
-				renderer.setBackground(backgroundSelectionColor);
-			} else {
-				renderer.setBackground(backgroundNonSelectionColor);
-			}
-			renderer.setEnabled(tree.isEnabled());
-			returnValue = renderer;
 		} else if (value instanceof ReferencesElement) {
 			ReferencesElement e = (ReferencesElement) value;
 			textLabel.setText(e.getRefColumn() + ", " + e.getRefTable());
-			icon.setIcon(tableIcon);
-			if (isSelected) {
-				renderer.setBackground(backgroundSelectionColor);
+			icon.setIcon(referencesIcon);
+		} else if (value instanceof ColumnElement) {
+			ColumnElement e = (ColumnElement) value;
+			textLabel.setText(e.getName());
+
+			if (e.getName() == "Columns") {
+				icon.setIcon(columnMainIcon);
 			} else {
-				renderer.setBackground(backgroundNonSelectionColor);
+				icon.setIcon(columnIcon);
 			}
-			renderer.setEnabled(tree.isEnabled());
-			returnValue = renderer;
+		} else if (value instanceof TableElement) {
+			TableElement e = (TableElement) value;
+			textLabel.setText(e.getName());
+
+			if (e.getName() == "Tables") {
+				icon.setIcon(tableMainIcon);
+			} else {
+				icon.setIcon(tableIcon);
+			}
+		} else if (value instanceof CrudElement) {
+			CrudElement e = (CrudElement) value;
+			textLabel.setText(e.getCode() == null ? e.getName() : (e.getCode() + ": " + e.getName()));
+
+			if (e.getName() == "CRUD") {
+				icon.setIcon(crudMainIcon);
+			} else {
+				icon.setIcon(crudIcon);
+			}
 		}
 
-		return returnValue;
+		// if (expanded) {
+		// setOpenIcon(openIcon);
+		// } else {
+		// setClosedIcon(closedIcon);
+		// }
+
+		if (isSelected) {
+			renderer.setBackground(backgroundSelectionColor);
+		} else {
+			renderer.setBackground(backgroundNonSelectionColor);
+		}
+
+		renderer.setEnabled(tree.isEnabled());
+
+		return renderer;
 	}
 }
