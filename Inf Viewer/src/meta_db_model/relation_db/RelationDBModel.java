@@ -1,8 +1,9 @@
 
 package meta_db_model.relation_db;
 
+import meta_db_model.BaseDBStorageModel;
 
-public class Example {
+public class RelationDBModel extends BaseDBStorageModel {
 
     private Database database;
 
@@ -10,14 +11,14 @@ public class Example {
      * No args constructor for use in serialization
      * 
      */
-    public Example() {
+    public RelationDBModel() {
     }
 
     /**
      * 
      * @param database
      */
-    public Example(Database database) {
+    public RelationDBModel(Database database) {
         super();
         this.database = database;
     }

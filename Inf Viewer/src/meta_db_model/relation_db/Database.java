@@ -4,6 +4,8 @@ package meta_db_model.relation_db;
 import java.util.ArrayList;
 import java.util.List;
 
+import meta_db_model.Connection;
+
 public class Database {
 
     private Connection connection;

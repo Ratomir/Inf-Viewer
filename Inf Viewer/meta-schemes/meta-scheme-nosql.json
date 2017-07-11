@@ -1,0 +1,38 @@
+{
+	"connection": {
+		"address": "localhost",
+		"database": "infviewer",
+		"databasetype": "MongoDB",
+		"password": "rvs1992",
+		"port": "27001",
+		"schema": "",
+		"username": "",
+		"connectionName": "NoSQL-1"
+	},
+	"collection": [
+		{
+			"code": "offer",
+			"name": "Offer"
+		},
+		{
+			"code": "order",
+			"name": "Order"
+		},
+		{
+			"code": "HOTEL",
+			"name": "Hotel"
+		},
+		{
+			"code": "ticet",
+			"name": "Ticet"
+		},
+		{
+			"code": "metascheme",
+			"name": "Meta scheme"
+		},
+		{
+			"code": "user",
+			"name": "User"
+		}
+	]
+}

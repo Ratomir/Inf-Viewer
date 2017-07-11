@@ -1,5 +1,5 @@
 
-package meta_db_model.relation_db;
+package meta_db_model;
 
 
 public class Connection {

@@ -1,0 +1,34 @@
+{
+	"connection": {
+		"address": "localhost",
+		"database": "bankcache",
+		"databasetype": "Redis",
+		"password": "rvs1992",
+		"port": "6379",
+		"schema": "",
+		"username": "",
+		"connectionName": "KeyValue"
+	},
+	"row": [
+		{
+			"key": "offer",
+			"type": "hashes"
+		},
+		{
+			"key": "offer",
+			"type": "sets"
+		},
+		{
+			"key": "offer",
+			"type": "sortedsets"
+		},
+		{
+			"key": "offer",
+			"type": "string"
+		},
+		{
+			"key": "offer",
+			"type": "linkedList"
+		}
+	]
+}

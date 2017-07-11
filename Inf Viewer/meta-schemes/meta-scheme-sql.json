@@ -1,0 +1,1282 @@
+﻿{
+    "connection": {
+      "address": "78.28.157.8",
+      "database": "PIS2015",
+      "databasetype": "MsSQL",
+      "password": "EtfPIS2015G49372",
+      "port": "default",
+      "schema": "pisg4",
+      "username": "EtfPIS2015G4",
+      "connectionName": "MsSQL-1"
+    },
+    "table": [
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "PRAVNOLICE"
+            },
+            "code": "PRADROZNAKA",
+            "name": "Drzava u kojoj je registrovan",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "PLIDENT",
+              "refTable": "PRAVNOLICE"
+            },
+            "code": "PLIDENT",
+            "name": "Pravno lice",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "TATIP",
+              "refTable": "TIPARANZMANA"
+            },
+            "code": "TATIP",
+            "name": "Tip aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "smallint"
+          },
+          {
+            "code": "DROZNAKA",
+            "name": "Oznaka drzave",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "code": "HOSIFRA",
+            "name": "Sifra hotela",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "ARSIFRA",
+            "name": "Sifra aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "ARNAZIV",
+            "name": "Naziv",
+            "nullable": false,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          },
+          {
+            "code": "ARDATUMPOLASKA",
+            "name": "Datum polaska",
+            "nullable": false,
+            "primary": false,
+            "size": "",
+            "type": "datetime"
+          },
+          {
+            "code": "ARPERIODTRAJANJA",
+            "name": "Period trajanja",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "ARMINIMALNOOSOBA",
+            "name": "Minimalno osoba",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "ARMAKSIMALNOOSOBA",
+            "name": "Maksimalno osoba",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "ARCIJENA",
+            "name": "Cijena",
+            "nullable": true,
+            "primary": false,
+            "size": "12",
+            "type": "decimal(12,2)"
+          },
+          {
+            "code": "ARBROJUPLATA",
+            "name": "Broj uplata",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "ARUKUPNOUPLACENO",
+            "name": "Ukupno uplaceno",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "float"
+          },
+          {
+            "code": "ARDESTINACIJE",
+            "name": "Destinacije",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          },
+          {
+            "code": "ARAKTUELAN",
+            "name": "Aktuelan",
+            "nullable": false,
+            "primary": false,
+            "size": "",
+            "type": "datetime"
+          },
+          {
+            "code": "AROPIS",
+            "name": "Opis",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          },
+          {
+            "code": "ARNAPOMENA",
+            "name": "Napomena",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          },
+          {
+            "code": "AROSTALO",
+            "name": "Ostalo",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          }
+        ],
+        "crud": {
+          "create": "InsertAranzman",
+          "retrieve": "SelectAranzman",
+          "update": "UpdateAranzman",
+          "delete": "DeleteAranzman"
+        },
+        "code": "ARANZMAN",
+        "name": "Aranzman"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "PUIDENTIFIKATOR",
+              "refTable": "PUTNIK"
+            },
+            "code": "PUIDENTIFIKATOR",
+            "name": "Identifikator putnika",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "PRADROZNAKA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "PRADROZNAKA",
+            "name": "Drzava u kojoj je registrovan",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "PLIDENT",
+              "refTable": "ARANZMAN"
+            },
+            "code": "PLIDENT",
+            "name": "Pravno lice",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "TATIP",
+              "refTable": "ARANZMAN"
+            },
+            "code": "TATIP",
+            "name": "Tip aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "smallint"
+          },
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "DROZNAKA",
+            "name": "PutDrzava u kojoj je registrovan",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "HOSIFRA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "HOSIFRA",
+            "name": "Sifra hotela",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "ARSIFRA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "ARSIFRA",
+            "name": "Sifra aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          }
+        ],
+        "crud": {
+          "create": "",
+          "retrieve": "SelectBiraAranzman",
+          "update": "",
+          "delete": ""
+        },
+        "code": "BIRAARANZMAN",
+        "name": "Bira aranzman"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "DRZAVA"
+            },
+            "code": "DROZNAKA",
+            "name": "Drzava",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "code": "HOSIFRA",
+            "name": "Sifra hotela",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "HOKATEGORIJA",
+            "name": "Kategorija",
+            "nullable": true,
+            "primary": false,
+            "size": "1",
+            "type": "numeric(1)"
+          },
+          {
+            "code": "HOADRESA",
+            "name": "Adresa",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          },
+          {
+            "code": "HOLOKACIJA",
+            "name": "Lokacija",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          },
+          {
+            "code": "HOEMAIL",
+            "name": "Email",
+            "nullable": true,
+            "primary": false,
+            "size": "30",
+            "type": "varchar(30)"
+          },
+          {
+            "code": "HOBROJINFORMACIJE",
+            "name": "Broj informacije",
+            "nullable": true,
+            "primary": false,
+            "size": "30",
+            "type": "varchar(30)"
+          },
+          {
+            "code": "HOBROJRECEPCIJA",
+            "name": "Broj recepcija",
+            "nullable": true,
+            "primary": false,
+            "size": "30",
+            "type": "varchar(30)"
+          },
+          {
+            "code": "HONAZIV",
+            "name": "Naziv hotela",
+            "nullable": true,
+            "primary": false,
+            "size": "50",
+            "type": "nvarchar(50)"
+          }
+        ],
+        "crud": {
+          "create": "InsertHotel",
+          "retrieve": "SelectHotel",
+          "update": "UpdateHotel",
+          "delete": "DeleteHotel"
+        },
+        "code": "HOTEL",
+        "name": "Hotel"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "NMIDENTIFIKATOR",
+              "refTable": "NASELJENOMJESTO"
+            },
+            "code": "NASNMIDENTIFIKATOR",
+            "name": "Grad dolazka",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "NMIDENTIFIKATOR",
+              "refTable": "NASELJENOMJESTO"
+            },
+            "code": "NMIDENTIFIKATOR",
+            "name": "Grad polazka",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "PUIDENTIFIKATOR",
+              "refTable": "PUTNIK"
+            },
+            "code": "PUIDENTIFIKATOR",
+            "name": "Identifikator putnika",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "KASIFRA",
+
+            "name": "Sifra karte",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "KAPOVRATNA",
+            "name": "Povratna",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "bit"
+          },
+          {
+            "code": "KAKLASA",
+            "name": "Klasa",
+            "nullable": true,
+            "primary": false,
+            "size": "150",
+            "type": "varchar(150)"
+          },
+          {
+            "code": "KADATUMPOLAZKA",
+            "name": "Datum polazka",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "datetime"
+          },
+          {
+            "code": "KADATUMDOLAZKA",
+            "name": "Datum dolazka",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "datetime"
+          },
+          {
+            "code": "KANAPOMENA",
+            "name": "Napomena",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          },
+          {
+            "code": "KATIPPODIZANJA",
+            "name": "Tip podizanja",
+            "nullable": true,
+            "primary": false,
+            "size": "50",
+            "type": "varchar(50)"
+          }
+        ],
+        "crud": {
+          "create": "InsertKarte",
+          "retrieve": "SelectKarte",
+          "update": "UpdateKarte",
+          "delete": ""
+        },
+        "code": "KARTE",
+        "name": "Karte"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "NMIDENTIFIKATOR",
+              "refTable": "NASELJENOMJESTO"
+            },
+            "code": "NMIDENTIFIKATOR",
+
+            "name": "Mjesto odrzavanja",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "KOSIFRA",
+
+            "name": "Sifra koneferencije",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "KODATUMPOCETKA",
+            "name": "Datum pocetka",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "datetime"
+          },
+          {
+            "code": "KODATUMZAVRSETKA",
+            "name": "Datum zavrsetka",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "datetime"
+          },
+          {
+            "code": "KOBROJPOSJETILACA",
+            "name": "Broj posjetilaca",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "smallint"
+          },
+          {
+            "code": "KOCIJENA",
+            "name": "Cijena",
+            "nullable": true,
+            "primary": false,
+            "size": "12",
+            "type": "decimal(12,2)"
+          },
+          {
+            "code": "KOOPIS",
+            "name": "Opis",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          },
+          {
+            "code": "KONAPOMENA",
+            "name": "Napomena",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          }
+        ],
+        "crud": {
+          "create": "InsertKonferencija",
+          "retrieve": "SelectKonferencija",
+          "update": "UpdateKonferencija",
+          "delete": ""
+        },
+        "code": "KONFERENCIJA",
+        "name": "Konferencija"
+      },
+      {
+        "column": [
+          {
+            "code": "KOID",
+            "name": "Id",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "KOIME",
+            "name": "Ime",
+            "nullable": true,
+            "primary": false,
+            "size": "150",
+            "type": "varchar(150)"
+          },
+          {
+            "code": "KOSIFRAKORISNIKA",
+            "name": "Sifra korisnika",
+            "nullable": true,
+            "primary": false,
+            "size": "32",
+            "type": "char(32)"
+          },
+          {
+            "code": "KONIVOPRISTUPA",
+            "name": "Nivo pristupa",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "int"
+          }
+        ],
+        "crud": {
+          "create": "InsertKorisnici",
+          "retrieve": "SelectKorisnici",
+          "update": "UpdateKorisnici",
+          "delete": "DeleteKorisnici"
+        },
+        "code": "KORISNICI",
+        "name": "Korisnici"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "PRADROZNAKA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "PRADROZNAKA",
+            "name": "AraDrzava u kojoj je registrovan",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "PLIDENT",
+              "refTable": "ARANZMAN"
+            },
+            "code": "ARAPLIDENT",
+            "name": "AraPravno lice",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "TATIP",
+              "refTable": "ARANZMAN"
+            },
+            "code": "TATIP",
+            "name": "Tip aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "smallint"
+          },
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "ARADROZNAKA",
+            "name": "AraOznaka drzave",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "HOSIFRA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "HOSIFRA",
+            "name": "Sifra hotela",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "ARSIFRA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "ARSIFRA",
+            "name": "Sifra aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "KOID",
+              "refTable": "VODIC"
+            },
+            "code": "KOID",
+            "name": "Id",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "VODIC"
+            },
+            "code": "DROZNAKA",
+            "name": "Drzava u kojoj je registrovan",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "PLIDENT",
+              "refTable": "VODIC"
+            },
+            "code": "PLIDENT",
+            "name": "Pravno lice",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "RZIDENTIFIKATOR",
+              "refTable": "VODIC"
+            },
+            "code": "RZIDENTIFIKATOR",
+            "name": "Registar zaposlenih",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "smallint"
+          },
+          {
+            "references": {
+              "refColumn": "VOINDETIFIKATOR",
+              "refTable": "VODIC"
+            },
+            "code": "VOINDETIFIKATOR",
+            "name": "Identifikator vodica",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          }
+        ],
+        "crud": {
+          "create": "",
+          "retrieve": "SelectKoristiUsluge",
+          "update": "",
+          "delete": ""
+        },
+        "code": "KORISTIUSLUGE",
+        "name": "Koristi usluge"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "HOTEL"
+            },
+            "code": "DROZNAKA",
+            "name": "Drzava poslovanja",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "HOSIFRA",
+              "refTable": "HOTEL"
+            },
+            "code": "HOSIFRA",
+            "name": "Hotel",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "PGGODINA",
+            "name": "Godina",
+            "nullable": false,
+            "primary": true,
+            "size": "4",
+            "type": "numeric(4)"
+          },
+          {
+            "code": "PGCIJENAPUNPANSION",
+            "name": "Cijena pun pansion",
+            "nullable": true,
+            "primary": false,
+            "size": "12",
+            "type": "decimal(12,2)"
+          },
+          {
+            "code": "PGCIJENAPOLUPANSION",
+            "name": "Cijena polu pansion",
+            "nullable": true,
+            "primary": false,
+            "size": "12",
+            "type": "decimal(12,2)"
+          },
+          {
+            "code": "PGCIJENADORUCAK",
+            "name": "Cijena dorucak",
+            "nullable": true,
+            "primary": false,
+            "size": "12",
+            "type": "decimal(12,2)"
+          },
+          {
+            "code": "PGGODISTEPOPUST",
+            "name": "Godiste popust",
+            "nullable": true,
+            "primary": false,
+            "size": "2",
+            "type": "numeric(2)"
+          },
+          {
+            "code": "PGPOPUST",
+            "name": "Popust",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "smallint"
+          }
+        ],
+        "crud": {
+          "create": "InsertPoslovnaGodina",
+          "retrieve": "SelectPoslovnaGodina",
+          "update": "UpdatePoslovnaGodina",
+          "delete": ""
+        },
+        "code": "POSLOVNAGODINA",
+        "name": "Poslovna godina"
+      },
+      {
+        "column": [
+          {
+            "code": "PUIDENTIFIKATOR",
+            "name": "Identifikator putnika",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "PUIMEPUTNIKA",
+            "name": "Ime putnika",
+            "nullable": true,
+            "primary": false,
+            "size": "30",
+            "type": "varchar(30)"
+          },
+          {
+            "code": "PUPREZIMEPUTNIKA",
+            "name": "Prezime putnika",
+            "nullable": true,
+            "primary": false,
+            "size": "30",
+            "type": "varchar(30)"
+          },
+          {
+            "code": "PUPOL",
+            "name": "Pol",
+            "nullable": true,
+            "primary": false,
+            "size": "1",
+            "type": "char(1)"
+          },
+          {
+            "code": "PUDOKUMENT",
+            "name": "Dokument",
+            "nullable": true,
+            "primary": false,
+            "size": "150",
+            "type": "varchar(150)"
+          },
+          {
+            "code": "PUBROJDOKUMENTA",
+            "name": "Broj dokumenta",
+            "nullable": true,
+            "primary": false,
+            "size": "100",
+            "type": "varchar(100)"
+          },
+          {
+            "code": "PUDATUMRODJENJA",
+            "name": "Datum rodjenja",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "datetime"
+          },
+          {
+            "code": "PUEMAIL",
+            "name": "Email",
+            "nullable": true,
+            "primary": false,
+            "size": "30",
+            "type": "varchar(30)"
+          },
+          {
+            "code": "PUADRESA",
+            "name": "Adresa",
+            "nullable": true,
+            "primary": false,
+            "size": "30",
+            "type": "varchar(30)"
+          },
+          {
+            "code": "PUTELEFON",
+
+            "name": "Telefon",
+            "nullable": true,
+            "primary": false,
+            "size": "30",
+            "type": "varchar(30)"
+          },
+          {
+            "code": "PUZANIMANJE",
+            "name": "Zanimanje",
+            "nullable": true,
+            "primary": false,
+            "size": "150",
+            "type": "varchar(150)"
+          },
+          {
+            "code": "PUPOTREBNAVIZA",
+            "name": "Potrebna viza",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "bit"
+          },
+          {
+            "code": "PUOSIGURANJE",
+            "name": "Osiguranje",
+            "nullable": true,
+            "primary": false,
+            "size": "150",
+            "type": "varchar(150)"
+          },
+          {
+            "code": "PUTAKSA",
+            "name": "Taksa",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "real"
+          }
+        ],
+        "crud": {
+          "create": "InsertPutnik",
+          "retrieve": "SelectPutnik",
+          "update": "UpdatePutnik",
+          "delete": "DeletePutnik"
+        },
+        "code": "PUTNIK",
+        "name": "Putnik"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "PRADROZNAKA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "PRADROZNAKA",
+            "name": "PraOznaka drzave",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "PLIDENT",
+              "refTable": "ARANZMAN"
+            },
+            "code": "PLIDENT",
+            "name": "Identifikator pravnog lica",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "TATIP",
+              "refTable": "ARANZMAN"
+            },
+            "code": "TATIP",
+            "name": "Tip aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "smallint"
+          },
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "DROZNAKA",
+            "name": "Oznaka drzave",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "HOSIFRA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "HOSIFRA",
+            "name": "Sifra hotela",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "ARSIFRA",
+              "refTable": "ARANZMAN"
+            },
+            "code": "ARSIFRA",
+            "name": "Sifra aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "references": {
+              "refColumn": "PASIFRA",
+              "refTable": "PARTNERI"
+            },
+            "code": "PASIFRA",
+            "name": "Sifra partnera",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "smallint"
+          },
+          {
+            "references": {
+              "refColumn": "PANACINPOSLOVANJA",
+              "refTable": "PARTNERI"
+            },
+            "code": "PANACINPOSLOVANJA",
+            "name": "Nacin poslovanja",
+            "nullable": false,
+            "primary": true,
+            "size": "1",
+            "type": "char(1)"
+          },
+          {
+            "code": "PRSIFRAPREVOZNIKA",
+            "name": "Sifra prevoznika",
+            "nullable": false,
+            "primary": true,
+            "size": "2",
+            "type": "char(2)"
+          },
+          {
+            "code": "PRKAPACITETVOZILA",
+            "name": "Kapacitet vozila",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "smallint"
+          }
+        ],
+        "crud": {
+          "create": "InsertPrevoznici",
+          "retrieve": "SelectPrevoznici",
+          "update": "UpdatePrevoznici",
+          "delete": ""
+        },
+        "code": "PREVOZNICI",
+        "name": "Prevoznici"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "TSTIPSOBE",
+              "refTable": "TIPSOBE"
+            },
+            "code": "TSTIPSOBE",
+            "name": "Tip sobe",
+            "nullable": false,
+            "primary": true,
+            "size": "1",
+            "type": "char(1)"
+          },
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "HOTEL"
+            },
+            "code": "DROZNAKA",
+            "name": "Drzava",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "HOSIFRA",
+              "refTable": "HOTEL"
+            },
+            "code": "HOSIFRA",
+            "name": "Hotel",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "SPRAT",
+            "name": "Sprat",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "numeric(3)"
+          },
+          {
+            "code": "SOBROJSOBE",
+            "name": "Broj sobe",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "smallint"
+          }
+        ],
+        "crud": {
+          "create": "InsertSoba",
+          "retrieve": "SelectSoba",
+          "update": "",
+          "delete": ""
+        },
+        "code": "SOBA",
+        "name": "Soba"
+      },
+      {
+        "column": [
+          {
+            "code": "TATIP",
+            "name": "Tip aranzmana",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "smallint"
+          },
+          {
+            "code": "TAOPIS",
+            "name": "Opis aranzmana",
+            "nullable": true,
+            "primary": false,
+            "size": "150",
+            "type": "varchar(150)"
+          }
+        ],
+        "crud": {
+          "create": "InsertTipAranzmana",
+          "retrieve": "SelectTipAranzmana",
+          "update": "UpdateTipAranzmana",
+          "delete": "DeleteTipAranzmana"
+        },
+        "code": "TIPARANZMANA",
+        "name": "Tip aranzmana"
+      },
+      {
+        "column": [
+          {
+            "code": "TSTIPSOBE",
+            "name": "Tip sobe",
+            "nullable": false,
+            "primary": true,
+            "size": "1",
+            "type": "char(1)"
+          },
+          {
+            "code": "TSBROJSOBA",
+            "name": "Broj soba",
+            "nullable": true,
+            "primary": false,
+            "size": "",
+            "type": "smallint"
+          }
+        ],
+        "crud": {
+          "create": "InsertTipSobe",
+          "retrieve": "SelectTipSobe",
+          "update": "UpdateTipSobe",
+          "delete": "DeleteTipSobe"
+        },
+        "code": "TIPSOBE",
+        "name": "Tip sobe"
+      },
+      {
+        "column": [
+          {
+            "references": {
+              "refColumn": "DROZNAKA",
+              "refTable": "HOTEL"
+            },
+            "code": "DROZNAKA",
+            "name": "Drzava",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "references": {
+              "refColumn": "HOSIFRA",
+              "refTable": "HOTEL"
+            },
+            "code": "HOSIFRA",
+            "name": "Hotel",
+            "nullable": false,
+            "primary": true,
+            "size": "",
+            "type": "int"
+          },
+          {
+            "code": "USOZNAKA",
+            "name": "Oznaka",
+            "nullable": true,
+            "primary": false,
+            "size": "3",
+            "type": "char(3)"
+          },
+          {
+            "code": "USNAZIV",
+            "name": "Naziv",
+            "nullable": true,
+            "primary": false,
+            "size": "250",
+            "type": "varchar(250)"
+          }
+        ],
+        "crud": {
+          "create": "InsertUsluge",
+          "retrieve": "SelectUsluge",
+          "update": "UpdateUsluge",
+          "delete": "DeleteUsluge"
+        },
+        "code": "USLUGE",
+        "name": "Usluge"
+      },
+      {
+        "column": [
+          {
+            "code": "OZNAKA",
+            "name": "Oznaka",
+            "nullable": false,
+            "primary": true,
+            "size": "3",
+            "type": "varchar(3)"
+          },
+          {
+            "code": "NAZIV",
+            "name": "Naziv",
+            "nullable": true,
+            "primary": false,
+            "size": "20",
+            "type": "varchar(20)"
+          }
+        ],
+        "crud": {
+          "create": "InsertValute",
+          "retrieve": "SelectValute",
+          "update": "UpdateValute",
+          "delete": "DeleteValute"
+        },
+        "code": "VALUTE",
+        "name": "Valute"
+      }
+    ]
+}
