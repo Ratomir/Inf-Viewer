@@ -57,13 +57,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	public MenuBar() {
 		file = new JMenu("Menu");
 		file.setMnemonic(KeyEvent.VK_F);
-		
+				
 		file.add(new MenuItem("Create scheme", new ImageIcon("icons/ikonice nove/base.png"),
 				KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK), "createScheme", this));
 		// if(View.currentUser.roles.contains("admin")) {
 		file.add(new MenuItem("Import scheme", new ImageIcon("icons/ikonice nove/base.png"),
 				KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK), "importScheme", this));
-		// }
+		//}
 		
 		file.addSeparator();
 		file.add(new MenuItem("Sign out", new ImageIcon("icons/ikonice nove/logout.png"), null, "logOut", this));
