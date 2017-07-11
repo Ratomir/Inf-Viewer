@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JToolBar;
 
-import toolbar.dialog.NewConnectionMetaDialog;
-import toolbar.dialog.NewUserDialog;
 import toolbar.dialog.UserComponent;
 
 public class ToolbarView extends JToolBar implements ActionListener {

@@ -18,7 +18,6 @@ import core.ApplicationLocation;
 import parser.JsonParser;
 import parser.JsonWriterInfViewer;
 import render.ConnectionExplorer;
-import view.View;
 import view.model.WindowPropertiesModel;
 
 public class MenuBar extends JMenuBar implements ActionListener {

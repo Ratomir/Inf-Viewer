@@ -2,8 +2,6 @@ package render;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,7 +15,6 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import DAL.DBConnection;
-import core.DbCollections;
 
 public class TableDbView extends JScrollPane {
 
