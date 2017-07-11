@@ -47,7 +47,8 @@ public class View extends JFrame implements WindowListener {
 
 	public MenuBar menuBar = null;
 	public ToolbarView toolbar = null;
-
+	public StatusBarView statusBar = null;
+	
 	public static UserModel currentUser;
 
 	public View(UserModel userModel, LoginView loginView) {
@@ -60,16 +61,31 @@ public class View extends JFrame implements WindowListener {
 		mainPanel = new JPanel(new BorderLayout());
 
 		toolbar = new ToolbarView();
-
+		statusBar = new StatusBarView();
+		
 		connectionExplorer = new ConnectionExplorer();
 		centralMainView = new CentralView();
 		elementPropertiesView = new ElementPropertiesView();
 
+		menuBar = new MenuBar();
+
+		// Set dependency
+
+		menuBar.setConnectionExplorer(connectionExplorer);
+
+		// End dependency
+		
+		/*
+		 * 
+		 * Next part is for constructing main jframe of the view.
+		 *
+		 */
 		this.add(mainPanel);
 
 		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
 		this.getContentPane().add(toolbar, BorderLayout.NORTH);
-
+		this.getContentPane().add(statusBar, BorderLayout.SOUTH);
+		
 		windowPropertiesModel = new JsonParser<WindowPropertiesModel>(WindowPropertiesModel.class)
 				.readFromJsonFile(ApplicationLocation.windowProp);
 
@@ -85,14 +101,6 @@ public class View extends JFrame implements WindowListener {
 				dimensionScrean.height / 2 - dimensionWindow.height / 2);
 
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-		menuBar = new MenuBar();
-
-		// Set dependency
-
-		menuBar.setConnectionExplorer(connectionExplorer);
-
-		// End dependency
 
 		this.setJMenuBar(menuBar);
 
