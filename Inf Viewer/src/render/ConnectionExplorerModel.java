@@ -40,6 +40,10 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 	private Vector<Object> rootVector = null;
 
 	private TreeElement root;
+	
+	private TableElement tbl = null;
+
+	private ConnectionElement connectionTargetElement = null;
 
 	public ConnectionExplorerModel(TreeNode rootElement) {
 		super(rootElement);
@@ -52,6 +56,7 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		Connection metaDbModel = (new JsonParser<Database>(Database.class).readFromJsonFile(path)).getConnection();
 
 		ConnectionElement newConnection = new ConnectionElement();
+		newConnection.setCode(metaDbModel.getDatabasetype());
 		newConnection.setName(metaDbModel.getConnectionName());
 
 		if (metaDbModel.getDatabasetype().equals(DatabaseType.MsSQL)) {
@@ -75,9 +80,11 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		List<Table> tables = model.getTableFromMetaScheme();
 
 		TableElement rootTableElement = new TableElement();
+		rootTableElement.setCode("Tables");
 		rootTableElement.setName("Tables");
 
 		StoreProcedureElement rootProceduresElement = new StoreProcedureElement();
+		rootProceduresElement.setCode("Procedure");
 		rootProceduresElement.setName("Procedure");
 
 		for (int i = 0; i < tables.size(); i++) {
@@ -86,14 +93,17 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 			tableElement.setName(tables.get(i).getName());
 
 			CrudElement rootCrudElement = new CrudElement();
+			rootCrudElement.setCode("CRUD");
 			rootCrudElement.setName("CRUD");
 
 			ColumnElement rootColumnElement = new ColumnElement();
+			rootColumnElement.setCode("Columns");
 			rootColumnElement.setName("Columns");
 
 			for (int j = 0; j < tables.get(i).getColumn().size(); j++) {
 				Column currentColumn = tables.get(i).getColumn().get(j);
 				ColumnElement columnElement = new ColumnElement();
+				columnElement.setCode(currentColumn.getCode());
 				columnElement.setName(currentColumn.getName());
 
 				if (currentColumn.getReferences() != null) {
@@ -201,7 +211,6 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		this.rootVector = rootVector;
 	}
 
-	TableElement tbl = null;
 
 	/**
 	 * Metoda pretrazuje stablo i vraca tabelu sa zadatim kodom ako ona postoji
@@ -217,9 +226,9 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 
 		return tbl;
 	}
-
+	
 	/**
-	 * Rekurzivna metoda za pronalazenje tabele u stablu.
+	 * Rekurzivna metoda za pronalazenje tabele i njene konekcije u stablu.
 	 * 
 	 * @param nodes
 	 *            - cvorovi koje je potrebno pretraziti
@@ -239,6 +248,7 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 			}
 		}
 	}
+	
 
 	/**
 	 * Metoda vraca potomak elementa u stablu.
@@ -323,6 +333,20 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 	@Override
 	public boolean isLeaf(Object node) {
 		return (node instanceof References);
+	}
+
+	/**
+	 * @return the connectionTargetElement
+	 */
+	public ConnectionElement getConnectionTargetElement() {
+		return connectionTargetElement;
+	}
+
+	/**
+	 * @param connectionTargetElement the connectionTargetElement to set
+	 */
+	public void setConnectionTargetElement(ConnectionElement connectionTargetElement) {
+		this.connectionTargetElement = connectionTargetElement;
 	}
 
 }
