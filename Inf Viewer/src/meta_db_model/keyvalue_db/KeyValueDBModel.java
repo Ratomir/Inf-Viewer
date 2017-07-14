@@ -5,8 +5,8 @@ import java.util.List;
 import meta_db_model.BaseDBStorageModel;
 import meta_db_model.Connection;
 
-public class KeyValueDBModel extends BaseDBStorageModel {
-	private Connection connection;
+public class KeyValueDBModel extends BaseDBStorageModel<Row> {
+
 	private List<Row> row = null;
 
 	/**
@@ -22,17 +22,8 @@ public class KeyValueDBModel extends BaseDBStorageModel {
 	 * @param row
 	 */
 	public KeyValueDBModel(Connection connection, List<Row> row) {
-		super();
-		this.connection = connection;
+		super(connection);
 		this.row = row;
-	}
-
-	public Connection getConnection() {
-		return connection;
-	}
-
-	public void setConnection(Connection connection) {
-		this.connection = connection;
 	}
 
 	public List<Row> getRow() {
@@ -41,5 +32,10 @@ public class KeyValueDBModel extends BaseDBStorageModel {
 
 	public void setRow(List<Row> row) {
 		this.row = row;
+	}
+
+	@Override
+	public List<Row> getTableFromMetaScheme() {
+		return getRow();
 	}
 }

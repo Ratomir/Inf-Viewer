@@ -7,6 +7,11 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 
 import core.CRUDOperations;
+import core.DatabaseType;
+import meta_db_model.BaseDBStorageModel;
+import meta_db_model.Connection;
+import meta_db_model.no_relation_db.Collection;
+import meta_db_model.no_relation_db.NoRelationDBModel;
 import meta_db_model.relation_db.Column;
 import meta_db_model.relation_db.Crud;
 import meta_db_model.relation_db.Database;
@@ -18,6 +23,7 @@ import render.tree.elements.ColumnElement;
 import render.tree.elements.ConnectionElement;
 import render.tree.elements.CrudElement;
 import render.tree.elements.ReferencesElement;
+import render.tree.elements.RootElement;
 import render.tree.elements.StoreProcedureElement;
 import render.tree.elements.TableElement;
 
@@ -32,14 +38,54 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 
 	private TreeElement root;
 
-	public ConnectionExplorerModel(TreeNode rootElement, String path) {
+	public ConnectionExplorerModel(TreeNode rootElement) {
 		super(rootElement);
-		Database newDatabase = new JsonParser<Database>(Database.class).readFromJsonFile(path);
 
-		List<Table> tables = newDatabase.getTable();
+		root = new RootElement();
+		root.setName("Connections");
+	}
 
-		root = new ConnectionElement();
-		root.setName(newDatabase.getConnection().getConnectionName());
+//	public ConnectionExplorerModel(TreeNode rootElement, String path) {
+//		super(rootElement);
+//		Connection metaDbModel = (new JsonParser<Database>(Database.class).readFromJsonFile(path)).getConnection();
+//
+//		root = new ConnectionElement();
+//		root.setName(metaDbModel.getConnectionName());
+//
+//		if (metaDbModel.getDatabasetype().equals(DatabaseType.MsSQL)) {
+//			BaseDBStorageModel<Table> metaSchemeModel = new JsonParser<Database>(Database.class).readFromJsonFile(path);
+//			parseMetaSchemeToSQLModel(metaSchemeModel);
+//
+//		} else if (metaDbModel.getDatabasetype().equals(DatabaseType.MongoDB)) {
+//			BaseDBStorageModel<Collection> metaSchemeModel = new JsonParser<NoRelationDBModel>(NoRelationDBModel.class)
+//					.readFromJsonFile(path);
+//
+//			parseMetaSchemeToDocumentModel(metaSchemeModel);
+//		}
+//	}
+
+	public void updateConnectionTreeModel(String path) {
+		Connection metaDbModel = (new JsonParser<Database>(Database.class).readFromJsonFile(path)).getConnection();
+
+		ConnectionElement newConnection = new ConnectionElement();
+		newConnection.setName(metaDbModel.getConnectionName());
+
+		if (metaDbModel.getDatabasetype().equals(DatabaseType.MsSQL)) {
+			BaseDBStorageModel<Table> metaSchemeModel = new JsonParser<Database>(Database.class).readFromJsonFile(path);
+			parseMetaSchemeToSQLModel(metaSchemeModel, newConnection);
+
+		} else if (metaDbModel.getDatabasetype().equals(DatabaseType.MongoDB)) {
+			BaseDBStorageModel<Collection> metaSchemeModel = new JsonParser<NoRelationDBModel>(NoRelationDBModel.class)
+					.readFromJsonFile(path);
+
+			parseMetaSchemeToDocumentModel(metaSchemeModel, newConnection);
+		}
+
+		root.addElement(newConnection);
+	}
+
+	public void parseMetaSchemeToSQLModel(BaseDBStorageModel<Table> model, ConnectionElement connectionElement) {
+		List<Table> tables = model.getTableFromMetaScheme();
 
 		TableElement rootTableElement = new TableElement();
 		rootTableElement.setName("Tables");
@@ -49,14 +95,14 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 
 		for (int i = 0; i < tables.size(); i++) {
 
+			TreeElement tableElement = new TableElement();
+			tableElement.setName(tables.get(i).getName());
+
 			CrudElement rootCrudElement = new CrudElement();
 			rootCrudElement.setName("CRUD");
 
 			ColumnElement rootColumnElement = new ColumnElement();
 			rootColumnElement.setName("Columns");
-
-			TreeElement tableElement = new TableElement();
-			tableElement.setName(tables.get(i).getName());
 
 			for (int j = 0; j < tables.get(i).getColumn().size(); j++) {
 				Column currentColumn = tables.get(i).getColumn().get(j);
@@ -114,8 +160,27 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 			rootTableElement.addElement(tableElement);
 		}
 
-		root.addElement(rootTableElement); // add tables root
-		root.addElement(rootProceduresElement); // add store procedure root
+		connectionElement.addElement(rootTableElement); // add tables root
+		connectionElement.addElement(rootProceduresElement); // add store
+																// procedure
+																// root
+	}
+
+	public void parseMetaSchemeToDocumentModel(BaseDBStorageModel<Collection> model,
+			ConnectionElement connectionElement) {
+		List<Collection> collections = model.getTableFromMetaScheme();
+
+		TableElement rootTableElement = new TableElement();
+		rootTableElement.setName("Collections");
+
+		for (int i = 0; i < collections.size(); i++) {
+			TreeElement tableElement = new TableElement();
+			tableElement.setName(collections.get(i).getName());
+
+			rootTableElement.addElement(tableElement);
+		}
+
+		connectionElement.addElement(rootTableElement); // add tables root
 	}
 
 	/**
@@ -177,7 +242,9 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 	 */
 	@Override
 	public Object getChild(Object parent, int index) {
-		if (parent instanceof ConnectionElement) {
+		if (parent instanceof RootElement) {
+			return ((RootElement) parent).getElementAt(index);
+		} else if (parent instanceof ConnectionElement) {
 			return ((ConnectionElement) parent).getElementAt(index);
 		} else if (parent instanceof StoreProcedureElement) {
 			return ((StoreProcedureElement) parent).getElementAt(index);
@@ -198,7 +265,9 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 	 */
 	@Override
 	public int getChildCount(Object parent) {
-		if (parent instanceof ConnectionElement) {
+		if (parent instanceof RootElement) {
+			return ((RootElement) parent).getAllElements().size();
+		} else if (parent instanceof ConnectionElement) {
 			return ((ConnectionElement) parent).getAllElements().size();
 		} else if (parent instanceof StoreProcedureElement) {
 			return ((StoreProcedureElement) parent).getAllElements().size();
@@ -219,7 +288,9 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 	 */
 	@Override
 	public int getIndexOfChild(Object parent, Object child) {
-		if (parent instanceof ConnectionElement) {
+		if (parent instanceof RootElement) {
+			return ((RootElement) parent).getIndexOfElement((TreeElement) child);
+		} else if (parent instanceof ConnectionElement) {
 			return ((ConnectionElement) parent).getIndexOfElement((TreeElement) child);
 		} else if (parent instanceof StoreProcedureElement) {
 			return ((StoreProcedureElement) parent).getIndexOfElement((TreeElement) child);

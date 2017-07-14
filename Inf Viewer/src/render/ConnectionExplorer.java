@@ -21,9 +21,9 @@ public class ConnectionExplorer extends JScrollPane {
 	private JTree connectionTree;
 	private ConnectionExplorerModel model = null;
 	
-	public void setTree(String path){
+	public ConnectionExplorer(){
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Database");
-    	model = new ConnectionExplorerModel(root, path);
+    	model = new ConnectionExplorerModel(root);
     	
     	connectionTree = new JTree(model);
 		connectionTree.setCellRenderer(new TreeRenderer());
@@ -32,9 +32,13 @@ public class ConnectionExplorer extends JScrollPane {
 		
 //		connectionTree.addTreeSelectionListener((TreeSelectionListener) controller);
 //		connectionTree.addMouseListener((MouseListener) controller);
-		
     	
 		connectionTree.setFont(new FontUIResource("Arial",Font.LAYOUT_LEFT_TO_RIGHT,16));
-		setViewportView(connectionTree);	
+		setViewportView(connectionTree);
+	}
+	
+	public void setTree(String path){
+    	model.updateConnectionTreeModel(path);
+    	model.reload();
 	}
 }

@@ -5,8 +5,7 @@ import java.util.List;
 import meta_db_model.BaseDBStorageModel;
 import meta_db_model.Connection;
 
-public class NoRelationDBModel extends BaseDBStorageModel {
-	private Connection connection;
+public class NoRelationDBModel extends BaseDBStorageModel<Collection> {
 	private List<Collection> collection = null;
 
 	/**
@@ -22,17 +21,8 @@ public class NoRelationDBModel extends BaseDBStorageModel {
 	 * @param collection
 	 */
 	public NoRelationDBModel(Connection connection, List<Collection> collection) {
-		super();
-		this.connection = connection;
+		super(connection);
 		this.collection = collection;
-	}
-
-	public Connection getConnection() {
-		return connection;
-	}
-
-	public void setConnection(Connection connection) {
-		this.connection = connection;
 	}
 
 	public List<Collection> getCollection() {
@@ -41,5 +31,10 @@ public class NoRelationDBModel extends BaseDBStorageModel {
 
 	public void setCollection(List<Collection> collection) {
 		this.collection = collection;
+	}
+
+	@Override
+	public List<Collection> getTableFromMetaScheme() {
+		return getCollection();
 	}
 }
