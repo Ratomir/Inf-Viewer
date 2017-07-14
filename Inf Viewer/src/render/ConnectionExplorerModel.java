@@ -10,6 +10,8 @@ import core.CRUDOperations;
 import core.DatabaseType;
 import meta_db_model.BaseDBStorageModel;
 import meta_db_model.Connection;
+import meta_db_model.keyvalue_db.KeyValueDBModel;
+import meta_db_model.keyvalue_db.Row;
 import meta_db_model.no_relation_db.Collection;
 import meta_db_model.no_relation_db.NoRelationDBModel;
 import meta_db_model.relation_db.Column;
@@ -22,6 +24,7 @@ import render.tree.TreeElement;
 import render.tree.elements.ColumnElement;
 import render.tree.elements.ConnectionElement;
 import render.tree.elements.CrudElement;
+import render.tree.elements.KeyElement;
 import render.tree.elements.ReferencesElement;
 import render.tree.elements.RootElement;
 import render.tree.elements.StoreProcedureElement;
@@ -45,25 +48,6 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		root.setName("Connections");
 	}
 
-//	public ConnectionExplorerModel(TreeNode rootElement, String path) {
-//		super(rootElement);
-//		Connection metaDbModel = (new JsonParser<Database>(Database.class).readFromJsonFile(path)).getConnection();
-//
-//		root = new ConnectionElement();
-//		root.setName(metaDbModel.getConnectionName());
-//
-//		if (metaDbModel.getDatabasetype().equals(DatabaseType.MsSQL)) {
-//			BaseDBStorageModel<Table> metaSchemeModel = new JsonParser<Database>(Database.class).readFromJsonFile(path);
-//			parseMetaSchemeToSQLModel(metaSchemeModel);
-//
-//		} else if (metaDbModel.getDatabasetype().equals(DatabaseType.MongoDB)) {
-//			BaseDBStorageModel<Collection> metaSchemeModel = new JsonParser<NoRelationDBModel>(NoRelationDBModel.class)
-//					.readFromJsonFile(path);
-//
-//			parseMetaSchemeToDocumentModel(metaSchemeModel);
-//		}
-//	}
-
 	public void updateConnectionTreeModel(String path) {
 		Connection metaDbModel = (new JsonParser<Database>(Database.class).readFromJsonFile(path)).getConnection();
 
@@ -73,12 +57,15 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		if (metaDbModel.getDatabasetype().equals(DatabaseType.MsSQL)) {
 			BaseDBStorageModel<Table> metaSchemeModel = new JsonParser<Database>(Database.class).readFromJsonFile(path);
 			parseMetaSchemeToSQLModel(metaSchemeModel, newConnection);
-
 		} else if (metaDbModel.getDatabasetype().equals(DatabaseType.MongoDB)) {
 			BaseDBStorageModel<Collection> metaSchemeModel = new JsonParser<NoRelationDBModel>(NoRelationDBModel.class)
 					.readFromJsonFile(path);
-
 			parseMetaSchemeToDocumentModel(metaSchemeModel, newConnection);
+		} else if (metaDbModel.getDatabasetype().equals(DatabaseType.Redis)) {
+			BaseDBStorageModel<Row> metaSchemeModel = new JsonParser<KeyValueDBModel>(KeyValueDBModel.class)
+					.readFromJsonFile(path);
+
+			parseMetaSchemeToKeyValueModel(metaSchemeModel, newConnection);
 		}
 
 		root.addElement(newConnection);
@@ -178,6 +165,22 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 			tableElement.setName(collections.get(i).getName());
 
 			rootTableElement.addElement(tableElement);
+		}
+
+		connectionElement.addElement(rootTableElement); // add tables root
+	}
+
+	public void parseMetaSchemeToKeyValueModel(BaseDBStorageModel<Row> model, ConnectionElement connectionElement) {
+		List<Row> rows = model.getTableFromMetaScheme();
+
+		TableElement rootTableElement = new TableElement();
+		rootTableElement.setName("Keys");
+
+		for (int i = 0; i < rows.size(); i++) {
+			KeyElement keyElement = new KeyElement();
+			keyElement.setName(rows.get(i).getKey());
+
+			rootTableElement.addElement(keyElement);
 		}
 
 		connectionElement.addElement(rootTableElement); // add tables root
