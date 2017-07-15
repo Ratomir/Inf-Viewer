@@ -15,6 +15,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import render.tree.elements.ColumnElement;
 import render.tree.elements.ConnectionElement;
 import render.tree.elements.CrudElement;
+import render.tree.elements.KeyElement;
 import render.tree.elements.ReferencesElement;
 import render.tree.elements.RootElement;
 import render.tree.elements.StoreProcedureElement;
@@ -40,6 +41,8 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
 
 	Icon tableMainIcon = new ImageIcon("icons/explorer/table-main.png");
 	Icon tableIcon = new ImageIcon("icons/explorer/table.png");
+	
+	Icon keysIcon = new ImageIcon("icons/explorer/key.png");
 
 	Icon storeProcedure = new ImageIcon("icons/explorer/storeprocedure.png");
 
@@ -121,6 +124,11 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
 			} else {
 				icon.setIcon(crudIcon);
 			}
+		}
+		else if (value instanceof KeyElement) {
+			KeyElement e = (KeyElement) value;
+			textLabel.setText(e.getName());
+			icon.setIcon(keysIcon);
 		}
 
 		// if (expanded) {

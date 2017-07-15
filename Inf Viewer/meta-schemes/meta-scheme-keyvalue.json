@@ -7,27 +7,27 @@
 		"port": "6379",
 		"schema": "",
 		"username": "",
-		"connectionName": "KeyValue"
+		"connectionName": "Redis"
 	},
 	"row": [
 		{
-			"key": "offer",
+			"key": "users",
 			"type": "hashes"
 		},
 		{
-			"key": "offer",
+			"key": "grades",
 			"type": "sets"
 		},
 		{
-			"key": "offer",
+			"key": "dashboards",
 			"type": "sortedsets"
 		},
 		{
-			"key": "offer",
+			"key": "orders",
 			"type": "string"
 		},
 		{
-			"key": "offer",
+			"key": "marks",
 			"type": "linkedList"
 		}
 	]

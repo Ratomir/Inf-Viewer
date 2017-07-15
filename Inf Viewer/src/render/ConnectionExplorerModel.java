@@ -10,6 +10,8 @@ import core.CRUDOperations;
 import core.DatabaseType;
 import meta_db_model.BaseDBStorageModel;
 import meta_db_model.Connection;
+import meta_db_model.keyvalue_db.KeyValueDBModel;
+import meta_db_model.keyvalue_db.Row;
 import meta_db_model.no_relation_db.Collection;
 import meta_db_model.no_relation_db.NoRelationDBModel;
 import meta_db_model.relation_db.Column;
@@ -22,6 +24,7 @@ import render.tree.TreeElement;
 import render.tree.elements.ColumnElement;
 import render.tree.elements.ConnectionElement;
 import render.tree.elements.CrudElement;
+import render.tree.elements.KeyElement;
 import render.tree.elements.ReferencesElement;
 import render.tree.elements.RootElement;
 import render.tree.elements.StoreProcedureElement;
@@ -37,6 +40,10 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 	private Vector<Object> rootVector = null;
 
 	private TreeElement root;
+	
+	private TableElement tbl = null;
+
+	private ConnectionElement connectionTargetElement = null;
 
 	public ConnectionExplorerModel(TreeNode rootElement) {
 		super(rootElement);
@@ -45,40 +52,25 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		root.setName("Connections");
 	}
 
-//	public ConnectionExplorerModel(TreeNode rootElement, String path) {
-//		super(rootElement);
-//		Connection metaDbModel = (new JsonParser<Database>(Database.class).readFromJsonFile(path)).getConnection();
-//
-//		root = new ConnectionElement();
-//		root.setName(metaDbModel.getConnectionName());
-//
-//		if (metaDbModel.getDatabasetype().equals(DatabaseType.MsSQL)) {
-//			BaseDBStorageModel<Table> metaSchemeModel = new JsonParser<Database>(Database.class).readFromJsonFile(path);
-//			parseMetaSchemeToSQLModel(metaSchemeModel);
-//
-//		} else if (metaDbModel.getDatabasetype().equals(DatabaseType.MongoDB)) {
-//			BaseDBStorageModel<Collection> metaSchemeModel = new JsonParser<NoRelationDBModel>(NoRelationDBModel.class)
-//					.readFromJsonFile(path);
-//
-//			parseMetaSchemeToDocumentModel(metaSchemeModel);
-//		}
-//	}
-
 	public void updateConnectionTreeModel(String path) {
 		Connection metaDbModel = (new JsonParser<Database>(Database.class).readFromJsonFile(path)).getConnection();
 
 		ConnectionElement newConnection = new ConnectionElement();
+		newConnection.setCode(metaDbModel.getDatabasetype());
 		newConnection.setName(metaDbModel.getConnectionName());
 
 		if (metaDbModel.getDatabasetype().equals(DatabaseType.MsSQL)) {
 			BaseDBStorageModel<Table> metaSchemeModel = new JsonParser<Database>(Database.class).readFromJsonFile(path);
 			parseMetaSchemeToSQLModel(metaSchemeModel, newConnection);
-
 		} else if (metaDbModel.getDatabasetype().equals(DatabaseType.MongoDB)) {
 			BaseDBStorageModel<Collection> metaSchemeModel = new JsonParser<NoRelationDBModel>(NoRelationDBModel.class)
 					.readFromJsonFile(path);
-
 			parseMetaSchemeToDocumentModel(metaSchemeModel, newConnection);
+		} else if (metaDbModel.getDatabasetype().equals(DatabaseType.Redis)) {
+			BaseDBStorageModel<Row> metaSchemeModel = new JsonParser<KeyValueDBModel>(KeyValueDBModel.class)
+					.readFromJsonFile(path);
+
+			parseMetaSchemeToKeyValueModel(metaSchemeModel, newConnection);
 		}
 
 		root.addElement(newConnection);
@@ -88,9 +80,11 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		List<Table> tables = model.getTableFromMetaScheme();
 
 		TableElement rootTableElement = new TableElement();
+		rootTableElement.setCode("Tables");
 		rootTableElement.setName("Tables");
 
 		StoreProcedureElement rootProceduresElement = new StoreProcedureElement();
+		rootProceduresElement.setCode("Procedure");
 		rootProceduresElement.setName("Procedure");
 
 		for (int i = 0; i < tables.size(); i++) {
@@ -99,14 +93,17 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 			tableElement.setName(tables.get(i).getName());
 
 			CrudElement rootCrudElement = new CrudElement();
+			rootCrudElement.setCode("CRUD");
 			rootCrudElement.setName("CRUD");
 
 			ColumnElement rootColumnElement = new ColumnElement();
+			rootColumnElement.setCode("Columns");
 			rootColumnElement.setName("Columns");
 
 			for (int j = 0; j < tables.get(i).getColumn().size(); j++) {
 				Column currentColumn = tables.get(i).getColumn().get(j);
 				ColumnElement columnElement = new ColumnElement();
+				columnElement.setCode(currentColumn.getCode());
 				columnElement.setName(currentColumn.getName());
 
 				if (currentColumn.getReferences() != null) {
@@ -183,6 +180,22 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		connectionElement.addElement(rootTableElement); // add tables root
 	}
 
+	public void parseMetaSchemeToKeyValueModel(BaseDBStorageModel<Row> model, ConnectionElement connectionElement) {
+		List<Row> rows = model.getTableFromMetaScheme();
+
+		TableElement rootTableElement = new TableElement();
+		rootTableElement.setName("Keys");
+
+		for (int i = 0; i < rows.size(); i++) {
+			KeyElement keyElement = new KeyElement();
+			keyElement.setName(rows.get(i).getKey());
+
+			rootTableElement.addElement(keyElement);
+		}
+
+		connectionElement.addElement(rootTableElement); // add tables root
+	}
+
 	/**
 	 * @return the rootVector
 	 */
@@ -198,7 +211,6 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 		this.rootVector = rootVector;
 	}
 
-	TableElement tbl = null;
 
 	/**
 	 * Metoda pretrazuje stablo i vraca tabelu sa zadatim kodom ako ona postoji
@@ -214,9 +226,9 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 
 		return tbl;
 	}
-
+	
 	/**
-	 * Rekurzivna metoda za pronalazenje tabele u stablu.
+	 * Rekurzivna metoda za pronalazenje tabele i njene konekcije u stablu.
 	 * 
 	 * @param nodes
 	 *            - cvorovi koje je potrebno pretraziti
@@ -236,6 +248,7 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 			}
 		}
 	}
+	
 
 	/**
 	 * Metoda vraca potomak elementa u stablu.
@@ -320,6 +333,20 @@ public class ConnectionExplorerModel extends DefaultTreeModel {
 	@Override
 	public boolean isLeaf(Object node) {
 		return (node instanceof References);
+	}
+
+	/**
+	 * @return the connectionTargetElement
+	 */
+	public ConnectionElement getConnectionTargetElement() {
+		return connectionTargetElement;
+	}
+
+	/**
+	 * @param connectionTargetElement the connectionTargetElement to set
+	 */
+	public void setConnectionTargetElement(ConnectionElement connectionTargetElement) {
+		this.connectionTargetElement = connectionTargetElement;
 	}
 
 }
