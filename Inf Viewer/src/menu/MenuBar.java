@@ -159,7 +159,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			break;
 		case "save":
 			String test = textArea.getText();
-			JOptionPane.showMessageDialog(null, test.length());
 			// validate
 			boolean valid = false;
 			try {
